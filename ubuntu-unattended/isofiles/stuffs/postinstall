@@ -1,0 +1,11 @@
+#!/bin/sh -x 
+
+cd /root;
+# we need ssh key to be available after reboot
+mkdir .ssh
+chmod 0700 .ssh
+chown root:root .ssh
+cat stuffs/my-keys.pub > .ssh/authorized_keys
+chmod 0600 .ssh/authorized_keys
+chown root:root .ssh/authorized_keys
+
