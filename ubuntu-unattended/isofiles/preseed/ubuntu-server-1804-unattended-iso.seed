@@ -28,8 +28,8 @@ d-i netcfg/confirm_static boolean true
 
 #Hostname
 d-i netcfg/get_hostname string setupsvr
-d-i netcfg/get_domain string infocare.org
-d-i netcfg/hostname string setupsvr.infocare.org
+d-i netcfg/get_domain string zeroit.org
+d-i netcfg/hostname string setupsvr.zeroit.org
 
 ### Mirror settings
 d-i mirror/protocol string http
@@ -68,10 +68,17 @@ d-i partman/confirm_nooverwrite boolean true
 d-i partman/mount_style select traditional
 
 ### Account setup
-d-i passwd/root-login boolean true
-d-i passwd/make-user boolean false
-d-i passwd/root-password-crypted password $6$mGgl07BA$tzntXrzu2dMdEXmw77jeo/h8xQmKrz/M6tgaIAwWtdjBkm4tps2rmI/ZmH5/m.EUj2Nf9d7COFkaIPBuITbRZ1
+#d-i passwd/root-login boolean true
+#d-i passwd/make-user boolean false
+#d-i passwd/root-password-crypted password $6$mGgl07BA$tzntXrzu2dMdEXmw77jeo/h8xQmKrz/M6tgaIAwWtdjBkm4tps2rmI/ZmH5/m.EUj2Nf9d7COFkaIPBuITbRZ1
+#d-i user-setup/allow-password-weak boolean true
+d-i passwd/make-user boolean true
+d-i passwd/user-fullname string Ubuntu User
+d-i passwd/username string ubuntu
+d-i passwd/user-password-crypted password $6$mGgl07BA$tzntXrzu2dMdEXmw77jeo/h8xQmKrz/M6tgaIAwWtdjBkm4tps2rmI/ZmH5/m.EUj2Nf9d7COFkaIPBuITbRZ1
 d-i user-setup/allow-password-weak boolean true
+d-i user-setup/encrypt-home boolean false
+d-i passwd/user-default-groups string audio cdrom video adm sudo dip plugdev lpadmin sambashare
 
 ### Apt setup
 d-i apt-setup/use_mirror boolean true
@@ -100,8 +107,6 @@ d-i grub-installer/only_debian boolean true
 ### Post Install
 # Command Line 1: Allow root to SSH.
 d-i preseed/late_command string \
-    sed -i '/PermitRootLogin / s/ .*/ yes/' /target/etc/ssh/sshd_config; \
-    sed -i 's/#PermitRootLogin/PermitRootLogin/' /target/etc/ssh/sshd_config; \
     cp -aR /cdrom/stuffs /target/root/; \
     chroot /target chown -R root:root /root/stuffs; \
     chroot /target sh /root/stuffs/postinstall; \
