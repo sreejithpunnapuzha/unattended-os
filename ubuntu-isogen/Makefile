@@ -3,12 +3,11 @@ BUILD_DIR         ?= build
 PUSH_IMAGE        ?= false
 IMAGE_ID          ?= none
 COMMIT            ?= $(shell git rev-parse HEAD)
-LABEL             ?= org.airshipit.build=community
 IMAGE_NAME        ?= isogen
 DOCKER_REGISTRY   ?= quay.io
-IMAGE_PREFIX      ?= airshipit
+IMAGE_PREFIX      ?= sreejithp
 IMAGE_TAG         ?= latest
-DISTRO            ?= ubuntu_stable
+DISTRO            ?= ubuntu_lts
 IMAGE             := ${DOCKER_REGISTRY}/${IMAGE_PREFIX}/${IMAGE_NAME}:${IMAGE_TAG}-${DISTRO}
 SH_TO_CHECK       := $(wildcard files/*.sh )
 PROXY             ?= http://proxy.foo.com:8000
@@ -69,15 +68,25 @@ ifeq ($(IMAGE_ID), none)
 ifeq ($(USE_PROXY), true)
 	docker build . --quiet \
 	--tag $(IMAGE) \
+	--label "org.opencontainers.image.revision=$(COMMIT)" \
+	--label "org.opencontainers.image.created=\
+	$(shell date --rfc-3339=seconds --utc)" \
+	--label "org.opencontainers.image.title=$(IMAGE_NAME)" \
 	--build-arg http_proxy=$(PROXY) \
 	--build-arg https_proxy=$(PROXY) \
 	--build-arg HTTP_PROXY=$(PROXY) \
 	--build-arg HTTPS_PROXY=$(PROXY) \
 	--build-arg no_proxy=$(NO_PROXY) \
-	--build-arg NO_PROXY=$(NO_PROXY) > $(BUILD_DIR)/image_id
+	--build-arg NO_PROXY=$(NO_PROXY) \
+	--build-arg GIT_COMMIT=$(COMMIT) > $(BUILD_DIR)/image_id
 else
 	docker build . --quiet \
 	--tag $(IMAGE) \
+	--label "org.opencontainers.image.revision=$(COMMIT)" \
+	--label "org.opencontainers.image.created=\
+	$(shell date --rfc-3339=seconds --utc)" \
+	--label "org.opencontainers.image.title=$(IMAGE_NAME)" \
+	--build-arg GIT_COMMIT=$(COMMIT) > $(BUILD_DIR)/image_id
 endif
 else
 	echo $(IMAGE_ID) > $(BUILD_DIR)/image_id

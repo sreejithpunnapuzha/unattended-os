@@ -1,4 +1,4 @@
-# airship-isogen
+# Ubuntu-isogen
 Iso creation tool
 
 Prepare
@@ -9,7 +9,6 @@ mkdir $(BUILD_DIR)
 If you don't have isogen image
 
 make build_isogen
-
 
 Usage
 

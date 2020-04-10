@@ -5,5 +5,5 @@ container:
   privileged: false
 builder:
   userDataFileName: user-data
-  networkConfigFileName : network-config
+  networkConfigFileName: network-config
   outputMetadataFileName: output-metadata.yaml

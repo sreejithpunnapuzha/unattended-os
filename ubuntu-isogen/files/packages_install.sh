@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -xe
 echo "ubuntu-live" > /etc/hostname
 echo "127.0.0.1 localhost" > /etc/hosts
@@ -14,12 +13,11 @@ apt-get update && apt-get install  -y --no-install-recommends \
    linux-generic \
    linux-image-generic \
    live-boot \
-   systemd-sysv \
+   systemd-sysv
+apt-get install -y --no-install-recommends \
+   cloud-init \
    apt-transport-https \
    openssh-server \
-   curl \
-   gnupg \
-   iptables \
-   cloud-init
+   curl
 echo 'root:r00tme' | chpasswd
 apt-get clean all && rm -rf /var/lib/apt/lists/*

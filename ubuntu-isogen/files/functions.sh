@@ -10,6 +10,16 @@ function _debootstrap (){
     http://archive.ubuntu.com/ubuntu/
 }
 
+function _use_ubuntu_net_device_names (){
+# this prioritizes the path policy over slot
+# giving ubuntu compatible interface names
+  cat <<EOF>"${HOME}"/LIVE_BOOT/chroot/usr/lib/systemd/network/99-default.link
+[Link]
+NamePolicy=kernel database onboard path slot
+MACAddressPolicy=persistent
+EOF
+}
+
 function _make_kernel(){
   mkdir -p "${HOME}"/LIVE_BOOT/{scratch,image/live}
   mksquashfs \
@@ -26,7 +36,7 @@ function _make_kernel(){
 function _grub_install (){
   cp /builder/grub.conf "${HOME}"/LIVE_BOOT/scratch/grub.cfg
 
-  touch "${HOME}/LIVE_BOOT/image/Ubuntu_CUSTOM"
+  touch "${HOME}/LIVE_BOOT/image/UBUNTU_CUSTOM"
 
   grub-mkstandalone \
     --format=i386-pc \
@@ -47,7 +57,7 @@ function _make_iso(){
     -as mkisofs \
     -iso-level 3 \
     -full-iso9660-filenames \
-    -volid "Ubuntu_CUSTOM" \
+    -volid "UBUNTU_CUSTOM" \
     --grub2-boot-info \
     --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
     -eltorito-boot \
