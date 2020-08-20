@@ -27,8 +27,8 @@ if [ $ISO_VERSION = "1604" ]; then
    ISO_FILE='ubuntu-16.04.6-server-amd64.iso'
 else [ $ISO_VERSION = "1804" ]
    echo "Using Ubuntu 18.04 Mirror"
-   ISO_URL='http://cdimage.ubuntu.com/releases/18.04.4/release/ubuntu-18.04.4-server-amd64.iso'
-   ISO_FILE='ubuntu-18.04.4-server-amd64.iso'
+   ISO_URL='http://cdimage.ubuntu.com/releases/18.04.5/release/ubuntu-18.04.5-server-amd64.iso'
+   ISO_FILE='ubuntu-18.04.5-server-amd64.iso'
 fi
 
 # get and unpack the ISO
