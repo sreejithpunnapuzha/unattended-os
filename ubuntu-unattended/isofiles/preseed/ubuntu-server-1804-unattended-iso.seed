@@ -97,7 +97,7 @@ popularity-contest popularity-contest/participate boolean false
 
 ### Package selection
 tasksel tasksel/first multiselect standard, server, openssh-server, python-minimal
-d-i pkgsel/include string vim git dkms ethtool build-essential open-vm-tools 
+d-i pkgsel/include string vim git dkms ethtool build-essential open-vm-tools
 d-i pkgsel/upgrade select none
 d-i pkgsel/update-policy select none
 
@@ -106,11 +106,11 @@ d-i grub-installer/only_debian boolean true
 
 ### Post Install
 # Command Line 1: Allow root to SSH.
-d-i preseed/late_command string \
-    cp -aR /cdrom/stuffs /target/root/; \
-    chroot /target chown -R root:root /root/stuffs; \
-    chroot /target sh /root/stuffs/postinstall; \
-    chroot /target rm -rf /root/stuffs;
+#d-i preseed/late_command string \
+#    cp -aR /cdrom/stuffs /target/root/; \
+#    chroot /target chown -R root:root /root/stuffs; \
+#    chroot /target sh /root/stuffs/postinstall; \
+#    chroot /target rm -rf /root/stuffs;
 
 ### Finishing up the installation
 d-i finish-install/reboot_in_progress note

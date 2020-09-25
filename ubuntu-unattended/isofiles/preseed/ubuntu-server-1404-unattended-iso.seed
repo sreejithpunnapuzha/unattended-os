@@ -166,7 +166,7 @@ tasksel tasksel/first multiselect standard, server, openssh-server, python-minim
 
 # Individual additional packages to install
 #d-i pkgsel/include string vim git ethtool dos2unix tree python-pip python3-pip python-dev python3-dev python-virtualenv python3-venv build-essential dkms open-vm-tools open-vm-tools-dkms
-d-i pkgsel/include string vim git ethtool build-essential open-vm-tools 
+d-i pkgsel/include string vim git ethtool build-essential open-vm-tools
 
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade
@@ -210,11 +210,11 @@ d-i grub-installer/only_debian boolean true
 
 # Command Line 1: Allow root to SSH.
 d-i preseed/late_command string \
-    sed -i '/PermitRootLogin / s/ .*/ yes/' /target/etc/ssh/sshd_config; \
-    cp -aR /cdrom/stuffs /target/root/; \
-    chroot /target chown -R root:root /root/stuffs; \
-    chroot /target sh /root/stuffs/postinstall; \
-    chroot /target rm -rf /root/stuffs;
+    sed -i '/PermitRootLogin / s/ .*/ yes/' /target/etc/ssh/sshd_config;
+#    cp -aR /cdrom/stuffs /target/root/; \
+#    chroot /target chown -R root:root /root/stuffs; \
+#    chroot /target sh /root/stuffs/postinstall; \
+#    chroot /target rm -rf /root/stuffs;
 
 ### Finish
 

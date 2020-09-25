@@ -87,7 +87,7 @@ d-i apt-setup/security_path string /ubuntu
 
 # Package selection
 tasksel tasksel/first multiselect standard, server, openssh-server, python-minimal
-d-i pkgsel/include string vim git dkms ethtool build-essential open-vm-tools 
+d-i pkgsel/include string vim git dkms ethtool build-essential open-vm-tools
 d-i pkgsel/upgrade select none
 d-i pkgsel/update-policy select none
 
@@ -101,11 +101,11 @@ d-i grub-installer/only_debian boolean true
 ### Post Install
 # Command Line 1: Allow root to SSH.
 d-i preseed/late_command string \
-    sed -i '/PermitRootLogin / s/ .*/ yes/' /target/etc/ssh/sshd_config; \
-    cp -aR /cdrom/stuffs /target/root/; \
-    chroot /target chown -R root:root /root/stuffs; \
-    chroot /target sh /root/stuffs/postinstall; \
-    chroot /target rm -rf /root/stuffs;
+    sed -i '/PermitRootLogin / s/ .*/ yes/' /target/etc/ssh/sshd_config;
+#    cp -aR /cdrom/stuffs /target/root/; \
+#    chroot /target chown -R root:root /root/stuffs; \
+#    chroot /target sh /root/stuffs/postinstall; \
+#    chroot /target rm -rf /root/stuffs;
 
 ### Finish
 d-i finish-install/reboot_in_progress note
